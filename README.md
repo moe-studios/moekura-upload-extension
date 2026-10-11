@@ -116,3 +116,7 @@ upload to a store, zip it:
 ```sh
 zip -r moekura-uploader.zip manifest.json icons src
 ```
+
+## License
+
+[MIT](LICENSE).
