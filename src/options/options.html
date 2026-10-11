@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moekura Uploader settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="../../icons/icon-48.png" alt="" width="40" height="40" />
+        <div>
+          <h1>Moekura Uploader</h1>
+          <p class="lede">Clone posts from other boorus to your Moekura site with one click.</p>
+        </div>
+      </header>
+
+      <form id="form" novalidate>
+        <section>
+          <h2>Your site</h2>
+          <label>
+            <span>Site address</span>
+            <input id="instanceUrl" type="url" placeholder="https://booru.example.com" autocomplete="url" required />
+          </label>
+          <label>
+            <span>API key</span>
+            <input id="apiKey" type="password" placeholder="mka_…" autocomplete="off" spellcheck="false" required />
+            <small>Make one on your site under <b>Settings → API keys</b>. It's kept in this browser only.</small>
+          </label>
+          <div class="row">
+            <button id="test" type="button" class="secondary">Test connection</button>
+            <output id="testResult" aria-live="polite"></output>
+          </div>
+        </section>
+
+        <section>
+          <h2>Uploads</h2>
+          <label>
+            <span>Source</span>
+            <select id="sourceMode">
+              <option value="original">The post's own source, or the booru page when it has none</option>
+              <option value="page">Always the booru page</option>
+            </select>
+          </label>
+          <label>
+            <span>Rating for sites that don't rate posts</span>
+            <select id="defaultRating">
+              <option value="g">General</option>
+              <option value="s">Sensitive</option>
+              <option value="q">Questionable</option>
+              <option value="e">Explicit</option>
+            </select>
+            <small>Only Zerochan, for now. Every other site's rating is kept.</small>
+          </label>
+          <label>
+            <span>Extra tags</span>
+            <input id="extraTags" type="text" placeholder="e.g. tagme" spellcheck="false" />
+            <small>Added to every post you clone, separated by spaces.</small>
+          </label>
+          <label class="check">
+            <input id="allowSimilar" type="checkbox" />
+            <span>Upload even when the file looks like posts already on the site</span>
+          </label>
+          <label class="check">
+            <input id="showButton" type="checkbox" />
+            <span>Show the <b>Clone to Moekura</b> button on post pages</span>
+          </label>
+          <p class="hint">
+            The toolbar button and <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> clone the post too.
+          </p>
+        </section>
+
+        <section id="boorus" hidden>
+          <h2>Booru access</h2>
+          <p>The extension needs access to the boorus to read posts and download their files.</p>
+          <button id="grantBoorus" type="button" class="secondary">Allow access to the boorus</button>
+        </section>
+
+        <div class="row actions">
+          <button id="save" type="submit">Save</button>
+          <output id="saveResult" aria-live="polite"></output>
+        </div>
+      </form>
+
+      <footer>
+        Works on Danbooru, e621, Gelbooru, Konachan, Rule34.us, Rule34.xxx, Safebooru, TBIB, Yande.re and
+        Zerochan.
+      </footer>
+    </main>
+    <script src="../settings.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>
