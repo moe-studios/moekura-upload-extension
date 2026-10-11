@@ -1,0 +1,32 @@
+name: Release
+
+# Tags like v0.1.0 publish a GitHub release with the extension zipped, as
+# Chrome's "Load unpacked" (once extracted) and the stores take it.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: The tag matches the manifest's version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          manifest=$(jq -r .version manifest.json)
+          test "$manifest" = "$version" || { echo "manifest.json says $manifest, the tag $version"; exit 1; }
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Zip the extension
+        run: |
+          mkdir dist
+          zip -r -X "dist/moekura-uploader-$VERSION.zip" manifest.json icons src LICENSE
+          unzip -l "dist/moekura-uploader-$VERSION.zip"
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: dist/*
+          generate_release_notes: true

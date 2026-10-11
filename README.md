@@ -117,6 +117,17 @@ upload to a store, zip it:
 zip -r moekura-uploader.zip manifest.json icons src
 ```
 
+## Releasing
+
+Set the new version in `manifest.json`, commit, and push a tag for it:
+
+```sh
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+The release workflow checks the tag against the manifest, zips the extension
+and publishes a GitHub release with the zip.
+
 ## License
 
 [MIT](LICENSE).
